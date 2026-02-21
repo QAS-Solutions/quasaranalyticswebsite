@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quasar Analytical Services | Question. Answer. Solution.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a1628;
+      --navy-mid: #122040;
+      --navy-light: #1a3060;
+      --white: #f8f9fc;
+      --gray-light: #e8eaf0;
+      --gray-mid: #9aa3b8;
+      --gray-dark: #4a5568;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --teal: #1a7a8a;
+      --teal-light: #22a0b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(10,22,40,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      transition: all 0.3s;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .logo-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    nav ul a {
+      text-decoration: none;
+      color: var(--gray-mid);
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 2px;
+      transition: all 0.3s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold) !important;
+      color: var(--navy) !important;
+    }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0 4rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(26,122,138,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 80% at 10% 80%, rgba(201,168,76,0.07) 0%, transparent 50%),
+        linear-gradient(135deg, var(--navy) 0%, #0d1f3c 100%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Orbiting rings */
+    .hero-orb {
+      position: absolute;
+      right: 3%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 420px;
+      height: 420px;
+      opacity: 0.85;
+    }
+
+    @media (max-width: 1200px) {
+      .hero-orb {
+        width: 320px;
+        height: 320px;
+        right: 2%;
+        opacity: 0.6;
+      }
+      .hero-orb svg {
+        width: 320px;
+        height: 320px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-orb {
+        width: 240px;
+        height: 240px;
+        opacity: 0.4;
+      }
+      .hero-orb svg {
+        width: 240px;
+        height: 240px;
+      }
+    }
+
+    .orb-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.15);
+      animation: spin linear infinite;
+    }
+
+    .orb-ring:nth-child(1) { inset: 0; animation-duration: 30s; }
+    .orb-ring:nth-child(2) { inset: 40px; border-color: rgba(26,122,138,0.2); animation-duration: 20s; animation-direction: reverse; }
+    .orb-ring:nth-child(3) { inset: 100px; border-color: rgba(201,168,76,0.1); animation-duration: 40s; }
+
+    .orb-dot {
+      position: absolute;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      top: -4px; left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 12px var(--gold);
+    }
+
+    .orb-dot-2 {
+      background: var(--teal-light);
+      box-shadow: 0 0 12px var(--teal-light);
+      top: 50%; left: -4px;
+      transform: translateY(-50%);
+    }
+
+    .orb-center {
+      position: absolute;
+      inset: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,122,138,0.2) 0%, transparent 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qas-badge {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      opacity: 0.4;
+      letter-spacing: 0.1em;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse-draw {
+      0% { stroke-dashoffset: 800; opacity: 0.3; }
+      60% { opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 0.85; }
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { opacity: 0.5; r: 3; }
+      50% { opacity: 1; r: 4.5; }
+    }
+
+    .pulse-line {
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: pulse-draw 2.5s ease-in-out infinite;
+    }
+
+    .pulse-line-hero {
+      stroke-dasharray: 800;
+      stroke-dashoffset: 800;
+      animation: pulse-draw 3.5s ease-in-out infinite;
+    }
+
+    .pulse-line-team {
+      stroke-dasharray: 800;
+      stroke-dashoffset: 800;
+      animation: pulse-draw 3.5s ease-in-out infinite;
+    }
+
+    .glow {
+      animation: glow-pulse 2.5s ease-in-out infinite;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-content {
+        max-width: 100%;
+        text-align: left;
+      }
+    }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      display: block;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .qas-tagline {
+      display: flex;
+      gap: 0;
+      margin-bottom: 1.5rem;
+      align-items: baseline;
+    }
+
+    .qas-word {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--gray-mid);
+      position: relative;
+    }
+
+    .qas-word span {
+      color: var(--gold);
+      font-size: 2rem;
+    }
+
+    .qas-sep {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: rgba(201,168,76,0.3);
+      margin: 0 0.5rem;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--gray-mid);
+      line-height: 1.85;
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.9rem 2.2rem;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 0.9rem 2.2rem;
+      border: 1px solid rgba(248,249,252,0.25);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--white);
+      background: rgba(248,249,252,0.05);
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 3rem;
+      left: 4rem;
+      right: 4rem;
+      display: flex;
+      gap: 3rem;
+      z-index: 2;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      padding-top: 2rem;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-top: 0.3rem;
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 7rem 4rem;
+      scroll-margin-top: 72px;
+    }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    h2 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    /* ── ABOUT / WHO WE ARE ── */
+    #about {
+      background: var(--navy);
+      position: relative;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-left p {
+      color: var(--gray-mid);
+      line-height: 1.9;
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-left p strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .about-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .about-card {
+      background: var(--navy-mid);
+      padding: 2rem;
+      transition: background 0.3s;
+    }
+
+    .about-card:hover { background: var(--navy-light); }
+
+    .about-card-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1rem;
+      color: var(--teal-light);
+    }
+
+    .about-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .about-card p {
+      font-size: 0.9rem;
+      color: var(--gray-mid);
+      line-height: 1.75;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+      position: relative;
+    }
+
+    .services-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .services-header .section-eyebrow { justify-content: center; }
+    .services-header .section-eyebrow::before { display: none; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1px;
+      background: rgba(201,168,76,0.08);
+    }
+
+    .service-card {
+      background: var(--navy);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, background 0.3s;
+      cursor: default;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--gold);
+      transition: height 0.4s;
+    }
+
+    .service-card:hover::before { height: 100%; }
+    .service-card:hover { background: var(--navy-mid); }
+
+    .service-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: rgba(201,168,76,0.08);
+      line-height: 1;
+      margin-bottom: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    .service-card:hover .service-num { color: rgba(201,168,76,0.15); }
+
+    .service-icon {
+      width: 36px;
+      height: 36px;
+      color: var(--teal-light);
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+      line-height: 1.3;
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--gray-mid);
+      line-height: 1.9;
+    }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.2rem;
+    }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* Bottom row: 2 cards centered, same size as top 3 */
+    .service-card.bottom {
+      grid-column: span 1;
+    }
+
+    /* ── QAS MANIFESTO ── */
+    #qas {
+      background: var(--navy-mid);
+      text-align: center;
+      padding: 6rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #qas::before {
+      content: 'QAS';
+      position: absolute;
+      font-family: 'Playfair Display', serif;
+      font-size: 28vw;
+      font-weight: 700;
+      color: rgba(201,168,76,0.03);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .qas-manifesto {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .qas-manifesto .section-eyebrow { justify-content: center; }
+    .qas-manifesto .section-eyebrow::before { display: none; }
+
+    .qas-steps {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin: 3rem 0;
+      align-items: stretch;
+    }
+
+    .qas-step {
+      flex: 1;
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(201,168,76,0.15);
+      position: relative;
+      background: rgba(10,22,40,0.5);
+      transition: background 0.3s;
+    }
+
+    .qas-step:hover { background: rgba(10,22,40,0.8); }
+
+    .qas-step + .qas-step {
+      border-left: none;
+    }
+
+    .qas-step-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .qas-step-word {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .qas-step p {
+      font-size: 0.82rem;
+      color: var(--gray-mid);
+      line-height: 1.7;
+    }
+
+    .qas-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 0.5rem;
+      color: rgba(201,168,76,0.3);
+      font-size: 1.5rem;
+      align-self: center;
+    }
+
+    .qas-manifesto > p {
+      font-size: 1.08rem;
+      color: var(--gray-mid);
+      line-height: 1.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── TEAM ── */
+    #team {
+      background: var(--navy);
+    }
+
+    .team-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .team-profile {
+      position: sticky;
+      top: 7rem;
+    }
+
+    .team-avatar {
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 280px;
+      background: linear-gradient(135deg, var(--navy-light), var(--teal));
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-avatar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(201,168,76,0.1));
+    }
+
+    .avatar-initials {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.15);
+    }
+
+    .team-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .team-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .team-contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .team-contact-item {
+      font-size: 0.8rem;
+      color: var(--gray-mid);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .team-bio h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+    }
+
+    .team-bio h3:first-child { margin-top: 0; }
+
+    .team-bio p {
+      font-size: 1.02rem;
+      color: var(--gray-mid);
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
+    }
+
+    .team-bio p strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .industry-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .industry-chip {
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(201,168,76,0.25);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .achievement {
+      border-left: 2px solid var(--teal-light);
+      padding-left: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .achievement p {
+      margin-bottom: 0 !important;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy) 100%);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .contact-left h2 { margin-bottom: 1rem; }
+
+    .contact-left p {
+      font-size: 1.02rem;
+      color: var(--gray-mid);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+
+    .contact-item-info label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-item-info span {
+      font-size: 0.9rem;
+      color: var(--white);
+    }
+
+    .contact-item-info a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-item-info a:hover { color: var(--gold); }
+
+    /* Form */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--white);
+      padding: 0.8rem 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--gray-dark); }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .form-group select option { background: var(--navy-mid); }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      border: 1px solid rgba(26,122,138,0.4);
+      background: rgba(26,122,138,0.08);
+      color: var(--teal-light);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      padding: 2.5rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer .logo-name { font-size: 1rem; }
+    footer .logo-tag { font-size: 0.55rem; }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--gray-dark);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--gray-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { display: none; }
+      section { padding: 5rem 1.5rem; }
+      #home { padding: 0 1.5rem; }
+      .hero-orb { display: none !important; }
+      .about-inner, .team-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .team-profile { position: static; text-align: center; display: flex; flex-direction: column; align-items: center; }
+      .team-avatar { max-width: 180px; width: 180px; height: 180px; aspect-ratio: 1; margin: 0 auto 1.2rem; }
+      .team-avatar svg { width: 160px !important; height: 160px !important; }
+      .team-contact-info { align-items: center; }
+      .services-grid { grid-template-columns: 1fr; }
+      .services-grid .service-card { grid-column: span 6 !important; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { left: 1.5rem; right: 1.5rem; gap: 1.5rem; flex-wrap: wrap; }
+      .qas-steps { flex-direction: column; }
+      .qas-step + .qas-step { border-left: 1px solid rgba(201,168,76,0.15); border-top: none; }
+      .qas-arrow { display: none; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="logo">
+    <!-- SVG Logo: Q with crosshair + data pulse -->
+    <svg class="logo-icon" width="52" height="44" viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Q circle -->
+      <circle cx="32" cy="32" r="20" stroke="#c9a84c" stroke-width="2"/>
+      <!-- Q tail -->
+      <line x1="44" y1="44" x2="56" y2="56" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Pulse baseline -->
+      <line x1="0" y1="32" x2="80" y2="32" stroke="rgba(34,160,180,0.15)" stroke-width="1"/>
+      <!-- Animated pulse wave -->
+      <polyline class="pulse-line" points="0,32 10,32 18,20 22,44 26,28 30,36 34,32 40,32 50,32 58,24 62,40 66,32 80,32"
+        stroke="#22a0b4" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Center glow dot -->
+      <circle cx="32" cy="32" r="3" fill="#c9a84c" class="glow"/>
+      <circle cx="18" cy="20" r="2" fill="#22a0b4" opacity="0.7"/>
+      <circle cx="58" cy="24" r="2" fill="#22a0b4" opacity="0.7"/>
+    </svg>
+    <div class="logo-text">
+      <span class="logo-name">Quasar Analytical Solutions</span>
+      <span class="logo-tag">Question · Answer · Solution</span>
+    </div>
+  </a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#team">Our Team</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-orb" style="display:flex;align-items:center;justify-content:center;">
+    <svg width="420" height="420" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer decorative rings for depth -->
+      <circle cx="210" cy="190" r="180" stroke="rgba(201,168,76,0.06)" stroke-width="1"/>
+      <circle cx="210" cy="190" r="150" stroke="rgba(201,168,76,0.08)" stroke-width="1" stroke-dasharray="4 6"/>
+      <!-- Q circle — large -->
+      <circle cx="210" cy="190" r="118" stroke="#c9a84c" stroke-width="3"/>
+      <!-- Inner Q ring -->
+      <circle cx="210" cy="190" r="80" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="6 8"/>
+      <!-- Q tail -->
+      <line x1="295" y1="275" x2="355" y2="335" stroke="#c9a84c" stroke-width="6" stroke-linecap="round"/>
+      <line x1="330" y1="310" x2="355" y2="335" stroke="#c9a84c" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <!-- Pulse baseline -->
+      <line x1="0" y1="190" x2="420" y2="190" stroke="rgba(34,160,180,0.12)" stroke-width="1.5"/>
+      <!-- Animated pulse wave — full width -->
+      <polyline class="pulse-line-hero"
+        points="0,190 50,190 80,130 100,250 120,158 140,210 160,190 210,190 260,190 290,148 310,232 330,190 380,190 420,190"
+        stroke="#22a0b4" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Data point markers -->
+      <circle cx="80" cy="130" r="6" fill="#22a0b4" opacity="0.8"/>
+      <circle cx="120" cy="158" r="5" fill="#c9a84c" opacity="0.7"/>
+      <circle cx="290" cy="148" r="6" fill="#22a0b4" opacity="0.8"/>
+      <circle cx="310" cy="232" r="4" fill="#c9a84c" opacity="0.6"/>
+      <!-- Center glow dot -->
+      <circle cx="210" cy="190" r="12" fill="rgba(201,168,76,0.15)"/>
+      <circle cx="210" cy="190" r="7" fill="#c9a84c" opacity="0.9"/>
+      <circle cx="210" cy="190" r="3" fill="#fff"/>
+      <!-- QAS text watermark inside Q -->
+      <text x="210" y="175" font-family="Playfair Display, serif" font-size="28" font-weight="700"
+        fill="rgba(201,168,76,0.25)" text-anchor="middle" letter-spacing="6">QAS</text>
+      <text x="210" y="205" font-family="Arial, sans-serif" font-size="10" font-weight="400"
+        fill="rgba(201,168,76,0.18)" text-anchor="middle" letter-spacing="4">Q · A · S</text>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Data Consulting for Growing Businesses</div>
+    <h1>Turning your data into <em>answers</em> that drive results</h1>
+
+    <div class="qas-tagline">
+      <span class="qas-word"><span>Q</span>uestion</span>
+      <span class="qas-sep">→</span>
+      <span class="qas-word"><span>A</span>nswer</span>
+      <span class="qas-sep">→</span>
+      <span class="qas-word"><span>S</span>olution</span>
+    </div>
+
+    <p class="hero-desc">
+      Quasar Analytical Services helps small and medium-sized businesses harness the power of data, AI, and analytics to grow smarter, operate leaner, and outperform the competition.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start the Conversation</a>
+      <a href="#services" class="btn-secondary">Explore Services</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">20+</span>
+      <span class="stat-label">Years of Experience</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">$250M+</span>
+      <span class="stat-label">Revenue Generated for Clients</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">4</span>
+      <span class="stat-label">Industries Mastered</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Core Service Areas</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-left reveal">
+      <div class="section-eyebrow">Who We Are</div>
+      <h2>A data powerhouse built for <em>small business</em></h2>
+      <p>
+        Quasar Analytical Services is a Markham, Ontario–based consulting firm dedicated to helping small and medium-sized businesses unlock the full potential of their data. We specialize in <strong>AI strategy, cloud architecture, analytics, and financial insights</strong> — capabilities that were once reserved only for enterprise corporations.
+      </p>
+      <p>
+        We believe every business, regardless of size, deserves access to world-class data expertise. Our team brings over two decades of enterprise-level experience — and now puts that power to work for businesses like yours.
+      </p>
+      <a href="#services" class="btn-primary">See What We Do</a>
+    </div>
+    <div class="about-right reveal">
+      <div class="about-card">
+        <svg class="about-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        <h4>AI Strategy & Implementation</h4>
+        <p>Helping you understand where AI fits in your business — and how to get there.</p>
+      </div>
+      <div class="about-card">
+        <svg class="about-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+        <h4>Cloud Architecture</h4>
+        <p>Ensuring your systems are scalable, efficient, and built to grow with you.</p>
+      </div>
+      <div class="about-card">
+        <svg class="about-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <h4>Marketing Stragey, Analytics & Insights</h4>
+        <p>Turning raw data into revenue-driving decisions and cost-saving opportunities.</p>
+      </div>
+      <div class="about-card">
+        <svg class="about-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <h4>Financial Analysis</h4>
+        <p>Smarter financial visibility so you can run a tighter, more profitable operation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QAS MANIFESTO -->
+<section id="qas">
+  <div class="qas-manifesto">
+    <div class="section-eyebrow">Our Philosophy</div>
+    <h2>Every engagement follows the same proven path</h2>
+
+    <div class="qas-steps">
+      <div class="qas-step reveal">
+        <div class="qas-step-letter">Q</div>
+        <div class="qas-step-word">Question</div>
+        <p>We start by deeply understanding your business — your goals, your challenges, and the questions that keep you up at night.</p>
+      </div>
+      <div class="qas-arrow">→</div>
+      <div class="qas-step reveal">
+        <div class="qas-step-letter">A</div>
+        <div class="qas-step-word">Answer</div>
+        <p>We dig into your data, analyze the landscape, and surface clear, evidence-backed answers — no jargon, no guesswork.</p>
+      </div>
+      <div class="qas-arrow">→</div>
+      <div class="qas-step reveal">
+        <div class="qas-step-letter">S</div>
+        <div class="qas-step-word">Solution</div>
+        <p>We deliver actionable, real-world solutions tailored to your business size, budget, and ambitions — then help you implement them.</p>
+      </div>
+    </div>
+
+    <p>This is the <strong style="color:var(--white)">Q·A·S</strong> promise — from <em style="color:var(--gold);font-style:normal">Quasar Analytical Services</em> to you.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div class="section-eyebrow">What We Do</div>
+    <h2>Five service areas. <em>One unified goal:</em> your growth.</h2>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal" style="grid-column: span 2;">
+      <div class="service-num">01</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+      <h3>Artificial Intelligence</h3>
+      <p>AI can transform your business — but knowing where to start is the hardest part. We help you build an AI strategy, identify real-world use cases, and lead you through adoption and implementation at the pace that's right for you.</p>
+      <div class="service-tags">
+        <span class="tag">AI Strategy</span>
+        <span class="tag">AI Adoption</span>
+        <span class="tag">Implementation</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal" style="grid-column: span 2;">
+      <div class="service-num">02</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+      <h3>Autonomous Agent Creation</h3>
+      <p>We design and deploy intelligent AI agents that automate repetitive, costly tasks across your operations — from customer service and scheduling to reservations and marketing — freeing your team to focus on what matters most.</p>
+      <div class="service-tags">
+        <span class="tag">Customer Service</span>
+        <span class="tag">Scheduling</span>
+        <span class="tag">Marketing Automation</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal" style="grid-column: span 2;">
+      <div class="service-num">03</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+      <h3>Cloud Architecture & Technology</h3>
+      <p>Is your cloud setup truly optimized? We audit, design, and refine your cloud infrastructure so every system runs at peak performance — giving your customers a seamless experience and your business full control over its data.</p>
+      <div class="service-tags">
+        <span class="tag">Cloud Optimization</span>
+        <span class="tag">Infrastructure</span>
+        <span class="tag">Data Architecture</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal" style="grid-column: span 3;">
+      <div class="service-num">04</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      <h3>Marketing, Sales Analytics & Insights</h3>
+      <p>Your customer data contains a treasure map — most businesses just don't know how to read it. We analyze your sales and marketing data to uncover hidden revenue opportunities, reduce churn, optimize spend, and give you the insights to make smarter decisions every day. Small businesses that leverage data like enterprises do don't stay small for long.</p>
+      <div class="service-tags">
+        <span class="tag">Customer Analytics</span>
+        <span class="tag">Revenue Optimization</span>
+        <span class="tag">Segmentation</span>
+        <span class="tag">Campaign Insights</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal" style="grid-column: span 3;">
+      <div class="service-num">05</div>
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <h3>Financial Analysis</h3>
+      <p>We examine your business finances through a data lens — identifying inefficiencies, hidden costs, and untapped profit opportunities. Armed with clear financial models and actionable recommendations, you'll run a leaner, more profitable operation. Whether you're planning for growth or tightening operations, we give you the financial clarity to act with confidence.</p>
+      <div class="service-tags">
+        <span class="tag">Financial Modelling</span>
+        <span class="tag">Cost Optimization</span>
+        <span class="tag">Profitability Analysis</span>
+        <span class="tag">Business Intelligence</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-eyebrow reveal">Our Team</div>
+  <div class="team-inner">
+    <div class="team-profile reveal">
+      <div class="team-avatar" style="background:linear-gradient(135deg,#0a1628,#122040);display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,168,76,0.2);">
+        <svg width="260" height="260" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="210" cy="190" r="180" stroke="rgba(201,168,76,0.06)" stroke-width="1"/>
+      <circle cx="210" cy="190" r="150" stroke="rgba(201,168,76,0.08)" stroke-width="1" stroke-dasharray="4 6"/>
+      <circle cx="210" cy="190" r="118" stroke="#c9a84c" stroke-width="3"/>
+      <circle cx="210" cy="190" r="80" stroke="rgba(201,168,76,0.2)" stroke-width="1" stroke-dasharray="6 8"/>
+      <line x1="295" y1="275" x2="355" y2="335" stroke="#c9a84c" stroke-width="6" stroke-linecap="round"/>
+      <line x1="330" y1="310" x2="355" y2="335" stroke="#c9a84c" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+      <line x1="0" y1="190" x2="420" y2="190" stroke="rgba(34,160,180,0.12)" stroke-width="1.5"/>
+      <polyline class="pulse-line-team"
+        points="0,190 50,190 80,130 100,250 120,158 140,210 160,190 210,190 260,190 290,148 310,232 330,190 380,190 420,190"
+        stroke="#22a0b4" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="80" cy="130" r="6" fill="#22a0b4" opacity="0.8"/>
+      <circle cx="120" cy="158" r="5" fill="#c9a84c" opacity="0.7"/>
+      <circle cx="290" cy="148" r="6" fill="#22a0b4" opacity="0.8"/>
+      <circle cx="210" cy="190" r="10" fill="rgba(201,168,76,0.2)"/>
+      <circle cx="210" cy="190" r="6" fill="#c9a84c" opacity="0.9"/>
+      <circle cx="210" cy="190" r="2.5" fill="#fff"/>
+      <text x="210" y="175" font-family="Playfair Display, serif" font-size="28" font-weight="700"
+        fill="rgba(201,168,76,0.3)" text-anchor="middle" letter-spacing="6">QAS</text>
+      <text x="210" y="205" font-family="Arial, sans-serif" font-size="10"
+        fill="rgba(201,168,76,0.22)" text-anchor="middle" letter-spacing="4">Q · A · S</text>
+    </svg>
+      </div>
+      <div class="team-name">Our Team</div>
+      <div class="team-title">Quasar Analytical Services</div>
+      <div class="team-contact-info">
+        <span class="team-contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9aa3b8" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Markham, Ontario
+        </span>
+        <span class="team-contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9aa3b8" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <a href="/cdn-cgi/l/email-protection#74050115071506151a15180d001d17071b1801001d1b1a07341319151d185a171b19"><span class="__cf_email__" data-cfemail="19686c786a786b78777875606d707a6a76756c6d7076776a597e74787075377a7674">[email&#160;protected]</span></a>
+        </span>
+        <span class="team-contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9aa3b8" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          <a href="tel:4164526545">(416) 452-6545</a>
+        </span>
+      </div>
+    </div>
+
+    <div class="team-bio reveal">
+      <h3>20+ Years Turning Data into Growth</h3>
+      <p>
+        Our team has spent over two decades at the intersection of data, analytics, and business strategy — working inside some of Canada's and the world's largest corporations to help them see what their data is telling them. Now, that same enterprise-grade expertise is available to businesses like yours.
+      </p>
+
+      <div class="achievement">
+        <p>Helped organizations <strong>increase revenue by hundreds of millions of dollars</strong> by identifying hidden opportunities buried within their data — opportunities that would have gone unseen without the right analytical lens.</p>
+      </div>
+
+      <h3>Industries Served</h3>
+      <p>Deep, proven experience across multiple sectors means we understand the unique data challenges and opportunities your industry presents:</p>
+      <div class="industry-chips">
+        <span class="industry-chip">Retail</span>
+        <span class="industry-chip">Financial Services</span>
+        <span class="industry-chip">Telecommunications</span>
+        <span class="industry-chip">Not-For-Profit</span>
+      </div>
+
+      <h3>Why Small & Medium Business, Now?</h3>
+      <p>
+        After decades of driving results for large corporations — enterprises with vast resources and dedicated data teams — it became clear that <strong>small and medium-sized business owners are the ones who need this expertise most, yet have the least access to it.</strong>
+      </p>
+      <p>
+        Quasar Analytical Services was founded to close that gap. We bring the analytical rigor, the AI capabilities, and the strategic thinking that only Fortune 500 companies could afford — and we make it accessible, practical, and impactful for growing businesses in every sector.
+      </p>
+      <a href="#contact" class="btn-primary">Work With Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left reveal">
+      <div class="section-eyebrow">Get In Touch</div>
+      <h2>Ready to find your <em>answer</em>?</h2>
+      <p>
+        Every great solution starts with a conversation. Tell us about your business, your challenges, or the questions keeping you up at night — and we'll get back to you within one business day.
+      </p>
+
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="contact-item-info">
+            <label>Email</label>
+            <span><a href="/cdn-cgi/l/email-protection#bccdc9ddcfddceddd2ddd0c5c8d5dfcfd3d0c9c8d5d3d2cffcdbd1ddd5d092dfd3d1"><span class="__cf_email__" data-cfemail="becfcbdfcddfccdfd0dfd2c7cad7ddcdd1d2cbcad7d1d0cdfed9d3dfd7d290ddd1d3">[email&#160;protected]</span></a></span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <div class="contact-item-info">
+            <label>Phone</label>
+            <span><a href="tel:4164526545">(416) 452-6545</a></span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div class="contact-item-info">
+            <label>Head Office</label>
+            <span>Markham, Ontario, Canada</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-right reveal">
+      <form id="contactForm" action="https://formspree.io/f/mjgeelra" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="first_name" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="last_name" placeholder="Smith" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="jane@yourcompany.com" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="(416) 555-0100">
+        </div>
+        <div class="form-group">
+          <label for="service">Area of Interest</label>
+          <select id="service" name="service_interest">
+            <option value="">Select a service...</option>
+            <option>Artificial Intelligence</option>
+            <option>Autonomous Agent Creation</option>
+            <option>Cloud Architecture / Technology</option>
+            <option>Marketing & Sales Analytics</option>
+            <option>Financial Analysis</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell Us About Your Business</label>
+          <textarea id="message" name="message" placeholder="Briefly describe your business and what challenges you're looking to solve..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; text-align:center;">Send Message →</button>
+        <div class="form-success" id="formSuccess">
+          ✓ &nbsp; Message received — we'll be in touch within one business day.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#home" class="logo">
+    <svg class="logo-icon" width="52" height="44" viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="20" stroke="#c9a84c" stroke-width="2"/>
+      <line x1="44" y1="44" x2="56" y2="56" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="0" y1="32" x2="80" y2="32" stroke="rgba(34,160,180,0.12)" stroke-width="1"/>
+      <polyline class="pulse-line" points="0,32 10,32 18,20 22,44 26,28 30,36 34,32 40,32 50,32 58,24 62,40 66,32 80,32"
+        stroke="#22a0b4" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="32" cy="32" r="3" fill="#c9a84c" class="glow"/>
+    </svg>
+    <div class="logo-text">
+      <span class="logo-name">Quasar Analytical Services</span>
+      <span class="logo-tag">Question · Answer · Solution</span>
+    </div>
+  </a>
+
+  <span class="footer-copy">© 2025 Quasar Analytical Services. Markham, Ontario.</span>
+
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#team">Our Team</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav shadow on scroll
+  const navEl = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    navEl.style.boxShadow = window.scrollY > 50 ? '0 4px 30px rgba(0,0,0,0.4)' : 'none';
+  });
+
+  // Smooth scroll for all anchor links — accounts for fixed nav height
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      const target = document.querySelector(targetId);
+      if (!target) return;
+      e.preventDefault();
+      const navHeight = navEl.offsetHeight;
+      const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+  });
+
+  // Form submission via Formspree
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('button');
+    const successMsg = document.getElementById('formSuccess');
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        btn.style.display = 'none';
+        successMsg.style.display = 'block';
+        form.reset();
+      } else {
+        const data = await response.json();
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+        alert('Oops! There was a problem submitting your form. Please try again or email us directly at quasaranalyticsolutions@gmail.com');
+      }
+    } catch (error) {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+      alert('Oops! There was a problem submitting your form. Please try again or email us directly at quasaranalyticsolutions@gmail.com');
+    }
+  });
+</script>
+</body>
+</html>
